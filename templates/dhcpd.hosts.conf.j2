@@ -1,0 +1,3 @@
+{% for item in vms %}
+host {{ item.vm_hostname }} {hardware ethernet {{ item.mac }}; fixed-address {{ item.ip }};}
+{% endfor %}

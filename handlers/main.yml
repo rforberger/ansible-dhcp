@@ -1,0 +1,11 @@
+---
+
+- name: dhcpd
+  ansible.builtin.service:
+    name: "isc-dhcp-server"
+    state: restarted
+
+
+
+
+

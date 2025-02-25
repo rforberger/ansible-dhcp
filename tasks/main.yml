@@ -1,0 +1,31 @@
+---
+
+- name: install pkgs
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - isc-dhcp-server
+      - isc-dhcp-client
+
+- name: Write dhcpd.hosts.conf
+  ansible.builtin.template:
+    dest: "/etc/dhcp/dhcpd.hosts.conf"
+    src: "dhcpd.hosts.conf.j2"
+  notify:
+    - dhcpd
+
+- name: Write dhcpd.conf
+  ansible.builtin.template:
+    dest: "/etc/dhcp/dhcpd.conf"
+    src: "dhcpd.conf.j2"
+  notify:
+    - dhcpd
+  vars:
+    cidr_network: "{{  ansible_br0.ipv4.address  + '/' + ansible_br0.ipv4.netmask }}"
+
+
+
+
+
